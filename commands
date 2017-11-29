@@ -1,0 +1,81 @@
+ 514  sudo apt-get install python-virtualenv
+  515  sudo apt-get update
+  516  sudo apt-get install python-virtualenv
+  517  virtualenv -p python3 .
+  518  ls
+  519  source bin/activate
+  520  pip freez
+  521  pip freeze
+  522  ls
+  523  pip install django=1.11.2
+  524  pip install django==1.11.2
+  525  ls
+  526  mkdir src && cd src
+  527  django-admin.py startproject trydjango1-11
+  528  django-admin.py startproject muypicky .
+
+
+to show up the actual variable as such you can use verbatim 
+
+<code>  {% verbatim %} This is normal html file {{ html_var }} {% endverbatim  %} 
+
+
+Coding paridgm 
+
+DRY
+  Don't
+  Repeat 
+  Yourself
+
+Template inheritance 
+
+using block tag to create blocks for inheritance
+
+now if you the codes from parent class then you can use tah super
+
+{{ block.super }}
+
+inculude template tag
+
+it can include extra html contents
+
+create a folder inside template directory
+
+{% include 'snippets/nav.html' %}
+
+{% include 'snippets/css.html' %}
+
+
+models
+
+Query Set 
+
+always use query set dont convert it has list 
+
+like using querysetresult.count() is more efficient then using len(list(querysetresult))
+
+to access the content use column name with . symbol
+
+
+Generic views
+
+Detailview
+listview
+
+
+slug
+
+signals
+
+Forms 
+
+  to validate a field do following 
+  define a method 
+      def clean_<field-name>(self):
+          to get value
+          self.cleaned_data.get("<field-name")
+
+validators
+
+regarding Foreign key # Django models unleased 
+

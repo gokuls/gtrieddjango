@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'menus',
     'restaurants',
 ]
 
@@ -51,6 +52,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'muypicky.urls'
+LOGIN_URL = '/login/'   
+LOGOUT_REDIRECT_URL = '/login/'
 
 TEMPLATES = [
     {

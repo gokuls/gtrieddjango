@@ -13,8 +13,12 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
+from django.conf.urls import url,include
 from django.contrib import admin
+
+from django.contrib.auth.views import LoginView
+
+from django.contrib.auth.views import LogoutView
 
 from restaurants.views import ( 
 	HomeView,
@@ -30,12 +34,11 @@ from restaurants.views import restaurant_listview ,restaurant_createview
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^login/', LoginView.as_view(),name='login'),
+    url(r'^logout/', LogoutView.as_view(),name='logout'),
     url(r'^$',HomeView.as_view()),
-    url(r'^restaurants/$',restaurant_listview),
-    #url(r'^restaurantsc/$',restaurant_createview,name="addresto"),
-    url(r'^restaurantsc/$',RestaurantCreateView.as_view(),name="addresto"),
-    url(r'^restaurants/(?P<slug>\w+)$',RestaurantView.as_view(),name='rlv'),
-    url(r'^restaurantsdetail/(?P<slug>[\w-]+)/$',RestaurantDetailView.as_view(),name='rdlv'),
-    url(r'^about/$',AboutView.as_view()),
-    url(r'^contact/$',ContactView.as_view()),
+    url(r'^restaurants/', include('restaurants.urls',namespace='restaurants')),
+    url(r'^items/', include('menus.urls',namespace='menus')),
+    url(r'^about/$',AboutView.as_view(),name='about'),
+    url(r'^contact/$',ContactView.as_view(),name='contact'),
 ]
