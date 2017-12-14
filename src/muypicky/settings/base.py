@@ -28,6 +28,14 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'gokulonnexus7@gmail.com' 
+EMAIL_HOST_PASSWORD = 'jyothirani4s'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'Gokul <gokulonnexus7@email.com>'
+
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -39,6 +47,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'menus',
     'restaurants',
+    'profiles',
+
 ]
 
 MIDDLEWARE = [

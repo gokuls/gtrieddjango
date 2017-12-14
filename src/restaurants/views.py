@@ -9,6 +9,7 @@ from django.views import View
 
 
 from django.views.generic import TemplateView, ListView, DetailView
+from django.views.generic import UpdateView
 from django.views.generic import CreateView
 
 #import models
@@ -45,6 +46,21 @@ class AboutView(TemplateView):
 class ContactView(TemplateView):
 	template_name = "contact.html"
 
+class RestaurantView(LoginRequiredMixin, ListView):
+	#queryset = RestaurantLocation.objects.filter(location='Chennai')
+	template_name = "restaurants/restaurants_list.html"
+
+	def get_queryset(self):
+		return RestaurantLocation.objects.filter(owner = self.request.user )
+
+
+class RestaurantDetailView(LoginRequiredMixin, DetailView):
+	def get_queryset(self):
+		return RestaurantLocation.objects.filter(owner = self.request.user )
+		#queryset = RestaurantLocation.objects.filter(owner = self.request.user) # filter(owner = self.request.user )
+
+
+
 class RestaurantCreateView(LoginRequiredMixin, CreateView):
 	login_url='/login/'
 	form_class 		= ResturantLocationCreateForm
@@ -63,15 +79,21 @@ class RestaurantCreateView(LoginRequiredMixin, CreateView):
 		context['title'] 	= 	"Add Restaurants"
 		return context
 
-class RestaurantView(LoginRequiredMixin, ListView):
-	#queryset = RestaurantLocation.objects.filter(location='Chennai')
-	template_name = "restaurants/restaurants_list.html"
+class RestaurantUpdateView(LoginRequiredMixin, UpdateView):
+	login_url='/login/'
+	form_class 		= ResturantLocationCreateForm
+	template_name 	= 'restaurants/detail-update.html'	
+	#success_url 	= '/restaurants/'
 
 	def get_queryset(self):
 		return RestaurantLocation.objects.filter(owner = self.request.user )
 
-class RestaurantDetailView(LoginRequiredMixin, DetailView):
-	queryset = RestaurantLocation.objects.filter(owner = self.request.user )
+	def get_context_data(self, *args, **kwargs):
+		context 	= 	super(RestaurantUpdateView, self).get_context_data(*args, **kwargs)
+		context['title'] 	= 	"Add Restaurants"
+		return context
+
+
 
 
 

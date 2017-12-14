@@ -5,10 +5,7 @@
 <h1> {{ title }} </h1>
 
 <ul>
-{{ form.errors }}
-<form method="POST"> {% csrf_token %}
-	{{ form.as_p }}
-	<button type="submit"> Save</button>
-</form>
+
+{% include 'snippets/form-snippet.html' %}
 </ul>
 {% endblock %}

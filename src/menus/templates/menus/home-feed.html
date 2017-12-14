@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<ul>
+	{% for obj in object_list %}
+ 		<li> 
+
+
+ 	<div class="row">
+				<div class="col-sm-12"> 
+				<h4>
+				<a href="{% url 'profiles:detail' username=obj.user.username  %}"> {{ obj.user.username }} </a><br/>
+				 <a href="{{ obj.get_absolute_url }}">{{ obj.name }}</a> </h4>
+				<p> {{ obj.restaurant.title }} ||   {{ obj.restaurant.location }} || {{ obj.restaurant.category }}   </p>
+				<div class='thumbnail'>
+					<ul>
+				
+						<ul>
+								<b> {{ obj.name }} </b></br>
+								{% for ing in obj.get_content %}
+
+								<a href='{{ request.path }}?q={{ing}}'> {{ ing }} </a>
+
+								{% endfor %}
+						</ul>
+					</ul>
+					</div>
+				</div>
+			</div>
+
+ 		  </li>
+	{% endfor %}
+</ul>
+{%	endblock %}

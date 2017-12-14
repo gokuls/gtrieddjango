@@ -20,8 +20,9 @@ from django.contrib.auth.views import LoginView
 
 from django.contrib.auth.views import LogoutView
 
-from restaurants.views import ( 
-	HomeView,
+from menus.views import HomeView
+
+from restaurants.views import (
 	AboutView, 
 	ContactView, 
 	RestaurantView,
@@ -29,16 +30,19 @@ from restaurants.views import (
 	RestaurantCreateView
 	)
 
-from restaurants.views import restaurant_listview ,restaurant_createview
-
+from profiles.views import ProfileFollowToggle, RegisterView, activate_user_view
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^register/', RegisterView.as_view(),name='register'),
     url(r'^login/', LoginView.as_view(),name='login'),
     url(r'^logout/', LogoutView.as_view(),name='logout'),
+    url(r'^follow/', ProfileFollowToggle.as_view(),name='follow'),
     url(r'^$',HomeView.as_view()),
     url(r'^restaurants/', include('restaurants.urls',namespace='restaurants')),
     url(r'^items/', include('menus.urls',namespace='menus')),
     url(r'^about/$',AboutView.as_view(),name='about'),
+    url(r'^u/', include('profiles.urls',namespace='profiles')),
     url(r'^contact/$',ContactView.as_view(),name='contact'),
+    url(r'^activate/(?P<code>[a-z0-9].*)/$', activate_user_view,name="activate"),
 ]
